@@ -117,10 +117,9 @@ class Home extends Component {
     const mapOptions = {
       scrollEnabled: true,
     };
-
-    if (this.state.editing) {
-      mapOptions.scrollEnabled = false;
-      mapOptions.onPanDrag = e => this.onPress(e);
+    const LatLng = {
+    latitude: 24.633333,
+    longitude: 46.716667,
     }
 
     return (
@@ -133,26 +132,13 @@ class Home extends Component {
           onPress={e => this.onPress(e)}
           {...mapOptions}
         >
-          {this.state.polygons.map(polygon => (
-            <MapView.Polygon
-              key={polygon.id}
-              coordinates={polygon.coordinates}
-              holes={polygon.holes}
-              strokeColor="#F00"
-              fillColor="rgba(255,0,0,0.5)"
-              strokeWidth={1}
-            />
-          ))}
-          {this.state.editing && (
-            <MapView.Polygon
-              key={this.state.editing.id}
-              coordinates={this.state.editing.coordinates}
-              holes={this.state.editing.holes}
-              strokeColor="#000"
-              fillColor="rgba(255,0,0,0.5)"
-              strokeWidth={1}
-            />
-          )}
+        <MapView.Circle
+          center={LatLng}
+          radius={100000}
+          strokeColor="#F00"
+          fillColor="rgba(255,0,0,0.5)"
+          strokeWidth={1}
+        />
         </MapView>
         <View style={styles.buttonContainer}>
           {this.state.editing && (
